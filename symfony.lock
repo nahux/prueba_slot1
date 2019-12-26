@@ -94,6 +94,9 @@
             "config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "mashape/unirest-php": {
+        "version": "v3.0.4"
+    },
     "nelmio/api-doc-bundle": {
         "version": "3.0",
         "recipe": {
