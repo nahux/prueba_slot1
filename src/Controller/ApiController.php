@@ -87,7 +87,7 @@ class ApiController extends AbstractFOSRestController
 					];
 					$mensaje = "Consulta exitosa";
 					// Armo la respuesta
-					$params = ["estado" => 200, "mensaje" => "Consulta exitosa", "data" => $weather_info];
+					$params = ["estado" => 200, "mensaje" => "Consulta exitosa", "info_clima" => $weather_info];
 				} else {
 					// Seteo mensaje si hay error
 					switch ($response->code) {

@@ -23,6 +23,14 @@ body {
 	color: aliceblue;
 }
 
+/* Logo titulo */
+.titulo {
+	display: inline;
+	color: white;
+	margin-left: 3%;
+	font-family: monospace;
+}
+
 /* Fondo vertical */
 .backdiv {
 	height: 100%;
