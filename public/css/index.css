@@ -1,10 +1,71 @@
+html, body {
+	height: 100%;
+}
+
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+		font-family: Arial, Helvetica, sans-serif;
+		background-color: #d6d6d6;
 }
 
 /* Fondo negro a la navbar */
 .topnav {
     background-color: #333;
-    overflow: hidden;
+		overflow: hidden;
+		min-height: 5vw;
+		padding: 1vw;
 }
+
+/* Logo */
+.logo {
+	font-size: 4vw;
+	margin-left: 2vw;
+	color: aliceblue;
+}
+
+/* Fondo vertical */
+.backdiv {
+	height: 100%;
+	width: 75%;
+	margin-left: 11%;
+	background-color: white;
+	padding: 2vw;
+	text-align: center;
+	box-shadow: 10px 10px grey;
+}
+
+/* Contenedor del contenido */
+.container {
+	margin: 0% 15%;
+}
+
+/* Buscador */
+.buscador {
+	display: inline-flex;
+	border: 1px solid #b9b5b5;
+	padding: 4px;
+}
+.boton-buscar {
+	display: block;
+	margin: 2% auto;
+	background-color: #949494;
+	border-radius: 8px;
+	color: white;
+	min-width: 6vw;
+	border: 2px solid #797979;
+}
+.boton-buscar-active {
+	background-color: #42a4de;
+	border: 2px solid #428ebb;
+}
+
+
+/* Info del clima */
+.container-info-clima {
+	margin-top: 8%;
+}
+
+.imagen-clima {
+	font-size: 5vw;
+}
+

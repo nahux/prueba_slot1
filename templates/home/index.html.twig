@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clima de tu Ciudad{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/index.css')}}">
+	<link rel="stylesheet" href="{{asset('css/spinner.css')}}">
+	<link rel="stylesheet" href="{{asset('bundles/fontawesome/css/all.css')}}">
+{% endblock %}
+
+{% block body %}
+
+	<div class="topnav">
+		<a href="{{path('home')}}"><i class="fas fa-umbrella-beach logo"></i></a>
+	</div>
+
+	<div class="backdiv">
+		<div class="container">
+
+			<!-- Form buscar -->
+			<h1>Ingrese una Ciudad</h1>
+			<div class="buscador">
+				<input id="input-buscar" type="text" style="border:none;" placeholder="Buscar">
+				<i class="fas fa-search" style="color:#5b9a9a;"></i>
+			</div>
+			<button id="boton-buscar" class="boton-buscar" disabled>Buscar</button>
+			<hr style="display: none;" id="barra">
+
+			<!-- Info del clima de la ciudad -->
+			<p id="error" style="display:none;">No se ha podido encontrar información sobre la ciudad</p> <!-- Mensaje de error-->
+			<div class="container-info-clima" style="display: none;">				
+				<h2>La Plata</h2>
+				<i class="fas fa-cloud-sun imagen-clima"></i>
+				<p>30°C</p>
+				<p>Soleado</p>
+				<p>Viento: 20km</p>
+			</div>
+
+			<!-- Spinner Cargando-->
+			<div class="lds-spinner" id="spinner" style="margin-top: 5%; display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+		</div>
+	</div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+	<script src="{{asset('js/index.js')}}"></script>
+{% endblock %}
