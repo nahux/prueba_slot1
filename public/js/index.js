@@ -27,7 +27,7 @@ $(document).ready(function () {
 				$(".container-info-clima").show();
 			})
 			.fail(function(error) {
-				console.log(error);
+				// Ocurrio error, muestra mensaje y oculta spinner
 				$("#error").show();
 				$("#spinner").hide();
 			});
