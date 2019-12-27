@@ -18,7 +18,7 @@ use Unirest;
  */
 class ApiController extends AbstractFOSRestController
 {
-	private const APP_ID_PARAMETER = "&lang=es&appid=";
+	private const APP_ID_PARAMETER = "&units=metric&lang=es&appid=";
 	private $api_url;
 	private $api_secret;
 
@@ -26,18 +26,6 @@ class ApiController extends AbstractFOSRestController
 	{
 		$this->api_url = $api_url;
 		$this->api_secret = $api_secret;
-	}
-
-	/**
-	 * @author Nahuel Aparicio
-	 * @param String url
-	 * @return Response
-	 */
-	private function callRequest($url_parameters){
-	
-		// $response = $client-
-			
-		// return $response;
 	}
 
 	/**
@@ -77,10 +65,53 @@ class ApiController extends AbstractFOSRestController
 	 */
 	public function getCityWeather(Request $request)
 	{
-		// Seteo la url con la ciudad y el secret de la api de OpenWeather
-		$url_parameters = "?q=La Plata" . self::APP_ID_PARAMETER. $this->api_secret;
-
-		$response = Unirest\Request::get($this->api_url, $url_parameters);
-		return new Response(json_encode($response));
+		try {
+			// Traigo el nombre de la ciudad que indica el usuario
+			$city_name = $request->get('city_name');
+			
+			// Valido que esté la ciudad
+			if (isset($city_name) && !empty($city_name)) {
+				// Seteo los parámetros de la url con la ciudad y el secret de la api de OpenWeather
+				$url_parameters = "?q=" . $city_name . self::APP_ID_PARAMETER . $this->api_secret;
+				
+				// Llamo a la API de OpenWeather para buscar el clima de la ciudad
+				$response = Unirest\Request::get($this->api_url . $url_parameters);
+				
+				// Si es exitoso
+				if ($response->code == 200) {
+					$response_obj = $response->body;
+					$weather_info = [
+						"clima" => $response_obj->weather[0]->description,
+						"temperatura" => $response_obj->main->temp,
+						"viento" => $response_obj->wind->speed
+					];
+					$mensaje = "Consulta exitosa";
+					// Armo la respuesta
+					$params = ["estado" => 200, "mensaje" => "Consulta exitosa", "data" => $weather_info];
+				} else {
+					// Seteo mensaje si hay error
+					switch ($response->code) {
+						case 404:
+							$mensaje = "Ciudad no encontrada";
+							break;
+						case 500:
+							$mensaje = "Error del servicio externo";
+							break;
+						default:
+							$mensaje = "Ocurrió un error";
+							break;
+					}
+					// Armo la respuesta
+					$params = ["estado" => $response->code, "mensaje" => $mensaje, "data" => ""];
+				}
+				return new Response(json_encode($params), $response->code);
+			} else {
+				// La consulta esta mal formada, armo una respuesta
+				$params = ["estado" => 400, "mensaje" => "Consulta mal formada", "data" => ""];
+				return new Response(json_encode($params), 400);
+			}
+		} catch (\Exception $ex) {
+			return new Response(json_encode("Ocurrió un error interno - " . $ex->getMessage()), 500);
+		}
 	}
 }
