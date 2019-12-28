@@ -82,6 +82,7 @@ class ApiController extends AbstractFOSRestController
 					$response_obj = $response->body;
 					$weather_info = [
 						"clima" => $response_obj->weather[0]->description,
+						"icono" => $response_obj->weather[0]->icon,
 						"temperatura" => $response_obj->main->temp,
 						"viento" => $response_obj->wind->speed
 					];

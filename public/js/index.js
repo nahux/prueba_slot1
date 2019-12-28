@@ -21,7 +21,11 @@ $(document).ready(function () {
 				var titulo_ciudad = ciudad.toLowerCase(); // Ciudad
 				$("#ciudad").text(titulo_ciudad);
 				$("#ciudad").css('text-transform', 'capitalize');
+				// Icono
+				var iconurl = "http://openweathermap.org/img/w/" + info_clima.icono + ".png";
+				$('#wicon').attr('src', iconurl);
 				$("#clima").text(info_clima.clima); // Clima
+				$("#clima").css('text-transform', 'capitalize');
 				$("#temp").text(info_clima.temperatura+"°C"); // Temperatura
 				$("#viento").text(info_clima.viento+"km"); // Viento
 				$(".container-info-clima").show();

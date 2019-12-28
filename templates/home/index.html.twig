@@ -5,7 +5,7 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{asset('css/index.css')}}">
 	<link rel="stylesheet" href="{{asset('css/spinner.css')}}">
-	<link rel="stylesheet" href="{{asset('bundles/fontawesome/css/all.css')}}">
+	<link rel="stylesheet" href="{{asset('fontawesome/css/all.css')}}">
 {% endblock %}
 
 {% block body %}
@@ -34,7 +34,7 @@
 			<p id="error" style="display:none;">No se ha podido encontrar información sobre la ciudad</p> <!-- Mensaje de error-->
 			<div class="container-info-clima" style="display: none;">				
 				<h2 id="ciudad"></h2>
-				<i class="fas fa-cloud-sun imagen-clima"></i>
+				<div id="icon"><img id="wicon" src="" alt="Icono clima"></div>
 				<p id="clima"></p>
 				<p id="temp"></p>
 				<p id="viento"></p>
