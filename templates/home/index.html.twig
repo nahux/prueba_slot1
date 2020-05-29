@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{asset('css/index.css')}}">
+	<link rel="stylesheet" href="{{asset('css/emoji-picker.css')}}">
 	<link rel="stylesheet" href="{{asset('css/spinner.css')}}">
 	<link rel="stylesheet" href="{{asset('fontawesome/css/all.css')}}">
 {% endblock %}
@@ -42,7 +43,7 @@
 
 			<!-- Spinner Cargando-->
 			<div class="lds-spinner" id="spinner" style="margin-top: 5%; display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-			<button onclick="showChat()">Chat</button>
+			<button id="emoji-picker-button">😀</button>
 		</div>
 	</div>
 
@@ -53,9 +54,10 @@
 
 {% block javascripts %}
 
-	<script type="text/javascript" src="https://qa.s1gateway.com/pe/350a46a798045652de1eb54679b08edb405632f5c1171fc3d2be09c738be1e27e7abc2f2888b3090&ga=123456"></script>
 	<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
 	<script src="{{asset('js/index.js')}}"></script>
+	<script src="{{asset('js/emoji-picker.js')}}"></script>
+	<script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
 
 {% endblock %}
 
