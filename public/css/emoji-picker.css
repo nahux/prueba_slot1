@@ -24,5 +24,6 @@
 }
 
 .emoji-picker-option-container {
-    display: inline-block;
+    display: flex; 
+    flex-direction: column;
 }

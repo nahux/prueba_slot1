@@ -4,16 +4,16 @@ html, body {
 
 body {
     margin: 0;
-		font-family: Arial, Helvetica, sans-serif;
-		background-color: #d6d6d6;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #d6d6d6;
 }
 
 /* Fondo negro a la navbar */
 .topnav {
     background-color: #333;
-		overflow: hidden;
-		min-height: 5vw;
-		padding: 1vw;
+	overflow: hidden;
+	min-height: 5vw;
+	padding: 1vw;
 }
 
 /* Logo */
@@ -75,4 +75,20 @@ body {
 
 .imagen-clima {
 	font-size: 5vw;
+}
+
+div.editable {
+	display: inline-block;
+    width: 200px;
+    height: 20px;
+    border: 1px solid #ccc;
+    padding: 2px;
+    text-align: left;
+}
+
+img.emoji {
+	height: 1em;
+	width: 1em;
+	margin: 0 .05em 0 .1em;
+	vertical-align: -0.1em;
 }

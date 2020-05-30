@@ -1,14 +1,26 @@
 // URLs
 var emoji_json_url = 'https://cdn.jsdelivr.net/npm/emoji-datasource@5.0.1/emoji.json';
-var sheet_url = 'img/twitter_64.png';
+var sheet_url = 'img/sheet_apple_64.png';
 var emoji_px_size = 64;
 var sheet_size = 1000;
+var textarea = document.getElementById("input-emoji");
 
 // Get emoji JSON
 var emoji_data = {};
 $.getJSON(emoji_json_url, function(result){
     emoji_data = result;
 });
+var categories_order = {
+    'Symbols': 8,
+    'Activities': 5,
+    'Flags': 9,
+    'Travel & Places': 6,
+    'Food & Drink': 4,
+    'Animals & Nature': 3,
+    'People & Body': 2,
+    'Objects': 7,
+    'Smileys & Emotion': 1,
+}
 
 var emoji_button = document.getElementById("emoji-picker-button");
 var emoji_container = document.getElementById("emoji-picker-container");
@@ -39,6 +51,7 @@ function showPicker(button) {
     var category_div = setCategoryTitleNode(current_category, emoji_list, category_nodes);
     for (var i = 0; i < emoji_data.length; i++) {
         // Category check
+        if (emoji_data[i].category == 'Skin Tones') continue;
         if (current_category != emoji_data[i].category) {
             current_category = emoji_data[i].category;
             category_div = setCategoryTitleNode(current_category, emoji_list, category_nodes);
@@ -57,6 +70,8 @@ function showPicker(button) {
         var emoji_option = createElement("button", "emoji-picker-option");
         emoji_option.id = emoji.short_name;
         emoji_option.style = getCssBackgroundFromSheet(emoji.sheet_x, emoji.sheet_y);
+        emoji_option.dataset['unicode'] =  emoji_text;
+        emoji_option.onclick = selectEmoji;
         category_div.appendChild(emoji_option);
     }
     emoji_container.appendChild(emoji_list);
@@ -90,13 +105,19 @@ function createElement(tagName, className)  {
 **/
 function setCategoryTitleNode(name, container, category_nodes) {
     // Check if it already exists
-    var div_node = category_nodes.arr.find(div => div.id === 'category_'+name);
+    var div_node = null;
+    for (var i = 0; i < category_nodes.arr.length; i++) {
+        if (category_nodes.arr[i].id == 'category_'+name) {
+            div_node = category_nodes.arr[i];
+        }
+    }
     if (div_node) {
         return div_node;
     }
     // Create it otherwise
     div_node = createElement("div", "category_title");
     div_node.id = 'category_'+name;
+    div_node.style = '-webkit-order:'+categories_order[name]+';';
     var p_node = createElement("p", "category_title_text");
     p_node.innerHTML = name;
     div_node.appendChild(p_node);
@@ -106,7 +127,7 @@ function setCategoryTitleNode(name, container, category_nodes) {
 }
 
 /**
-    * Onclick listener to emoji picker button
+ * Onclick listener to emoji picker button
 **/
 function setContainerToggleListener() {
     window.onclick = function(event) {
@@ -121,6 +142,8 @@ function setContainerToggleListener() {
 
 /**
     * Calculate position in sheet
+    * @param {int} x - X position on the sheet grid
+    * @param {int} y - Y position on the sheet grid
     * @returns {string} (css style)
 **/
 function getCssBackgroundFromSheet(x, y) {
@@ -132,4 +155,15 @@ function getCssBackgroundFromSheet(x, y) {
             'height: '+emoji_px_size+'px;' +
             'background-position: '+finalX+'px '+finalY+'px;' +
             'zoom: 0.5';
+}
+
+
+/**
+ * Onclick function for each emoji
+ * @param {HTMLElement} emoji - Emoji butotn html
+ */
+function selectEmoji() {
+    var emoji_unicode = this.getAttribute("data-unicode");
+    var emoji_html = twemoji.parse(emoji_unicode, {folder:'svg', ext:'.svg'});
+    textarea.innerHTML += emoji_html;
 }
