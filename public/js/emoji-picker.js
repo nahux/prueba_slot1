@@ -83,7 +83,11 @@ function showPicker(button) {
         var emoji_text_arr = emoji_text.split('-');
         emoji_text = '';
         for (var j = 0; j < emoji_text_arr.length; j++) {
-            emoji_text += String.fromCodePoint(parseInt(emoji_text_arr[j], 16));
+            if (isIE11()) {
+                emoji_text += String.fromCharCode(parseInt(emoji_text_arr[j], 16));
+            } else {
+                emoji_text += String.fromCodePoint(parseInt(emoji_text_arr[j], 16));
+            }
         }
         // Set emoji option button
         var emoji_option = createElement("button", "emoji-picker-option");
@@ -196,11 +200,11 @@ function hideEmojiPreview() {
 function getCssBackgroundFromSheet(x, y) {
     var finalX = x == 0 ? -1 : -x*(emoji_px_size+2)-1;
     var finalY = y == 0 ? -1 : -y*(emoji_px_size+2)-1;
-    return  'background: url('+sheet_url+');' +
-            // 'background-size: '+sheet_size+'%;' +
+    return  'background:url('+sheet_url+');' +
             'width: '+emoji_px_size+'px;' +
             'height: '+emoji_px_size+'px;' +
             'background-position: '+finalX+'px '+finalY+'px;' +
+            '-moz-transform: scale(0.5); ' +  /* Firefox */
             'zoom: 0.5';
 }
 
@@ -229,3 +233,16 @@ function sortByKey(array, key) {
     });
 }
     
+/**
+ * Detect IE11
+ * @returns {boolean}
+ */
+function isIE11() {
+    var ua = window.navigator.userAgent;
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+        // IE 11 => return version number
+        return true
+    }
+    return false;
+}
