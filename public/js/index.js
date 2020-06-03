@@ -56,4 +56,6 @@ $(document).ready(function () {
 		}
 	});
 
+	EmojiPicker.init("emoji_button","twitter","input_emoji");
+
 });

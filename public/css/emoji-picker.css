@@ -6,9 +6,10 @@
   z-index: 1;
   width: 400px;
   height: 200px;
-  overflow: auto;
   background-color: white;
   border: 1px solid black;
+  border-radius: 5px;
+  resize: both;
 }
 
 .emoji-picker-option {
@@ -26,14 +27,19 @@
 
 .emoji-picker-emoji-preview {
   display: none;
+  justify-content: center;
+  align-items: center;
   background: rgba(0, 0, 0, 0.1);
   padding: 0.5em;
-  font-size: 1.8em;
+  font-size: 1em;
 }
 
 .emoji-picker-option-container {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
 }
 
 /* Spinner */
